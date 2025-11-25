@@ -1,9 +1,10 @@
 import express from 'express'
-import authRoutes from './routes/authRoutes.ts'
 import cors from 'cors'
 import morgan from 'morgan'
 import helmet from 'helmet'
 import { isTest } from '../env.ts'
+import authRoutes from './routes/authRoutes.ts'
+import habitRoutes from './routes/habitRoutes.ts'
 
 const app = express()
 app.use(helmet())
@@ -21,5 +22,6 @@ app.get('/health', (req, res) => {
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/habit', habitRoutes)
 
 export default app
