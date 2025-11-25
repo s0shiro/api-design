@@ -1,9 +1,18 @@
 import { Router } from 'express'
+import { login, register } from '../controllers/authController.ts'
+import { validateBody } from '../middleware/validation.ts'
+import { insertUserSchema } from '../db/schema.ts'
+import z from 'zod'
+
+const logInSchema = z.object({
+  email: z.email('Invalid email'),
+  password: z.string().min(1, 'Password is required!'),
+})
 
 const router = Router()
 
-router.post('/register', (req, res) => {
-  res.json({ message: 'user register' })
-})
+router.post('/register', validateBody(insertUserSchema), register)
+
+router.post('/login', validateBody(logInSchema), login)
 
 export default router

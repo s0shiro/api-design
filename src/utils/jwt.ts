@@ -13,7 +13,7 @@ export const generateToken = (payload: JWTPayload) => {
   const secretKey = createSecretKey(secret, 'utf-8')
 
   return new SignJWT(payload)
-    .setProtectedHeader({ alg: 'HS56' })
+    .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime(env.JWT_EXPIRES_IN)
     .sign(secretKey)
