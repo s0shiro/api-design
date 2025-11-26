@@ -5,6 +5,7 @@ import helmet from 'helmet'
 import { isTest } from '../env.ts'
 import authRoutes from './routes/authRoutes.ts'
 import habitRoutes from './routes/habitRoutes.ts'
+import { errorHandler } from './middleware/errorHandler.ts'
 
 const app = express()
 app.use(helmet())
@@ -23,5 +24,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api/auth', authRoutes)
 app.use('/api/habit', habitRoutes)
+
+app.use(errorHandler)
 
 export default app
