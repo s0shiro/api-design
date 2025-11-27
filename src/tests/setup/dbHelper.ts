@@ -20,7 +20,8 @@ export const createTestUser = async (userData: Partial<NewUser> = {}) => {
     ...userData,
   }
 
-  const hashedPassword = await hashPassword(defaultData.password)
+  const rawPassword = defaultData.password
+  const hashedPassword = await hashPassword(rawPassword)
 
   const [user] = await db
     .insert(users)
@@ -30,13 +31,13 @@ export const createTestUser = async (userData: Partial<NewUser> = {}) => {
     })
     .returning()
 
-  const token = generateToken({
+  const token = await generateToken({
     id: user.id,
     email: user.email,
     username: user.username,
   })
 
-  return { token, user }
+  return { token, user, rawPassword }
 }
 
 export const createTestHabit = async (
