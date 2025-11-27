@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@epic-web/remember": "^1.1.0",
+    "@google/genai": "^1.30.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "custom-env": "^2.0.6",
@@ -33,6 +34,7 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "jose": "^6.1.2",
+    "mime": "^4.1.0",
     "morgan": "^1.10.1",
     "pg": "^8.16.3",
     "zod": "^4.1.12"

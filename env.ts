@@ -25,6 +25,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(32, 'Must be 32 characters long.'),
   JWT_EXPIRES_IN: z.string().default('7d'),
   BYCRYPT_ROUNDS: z.coerce.number().min(10).max(20).default(12),
+  GEMINI_API_KEY: z.string(),
 })
 
 export type Env = z.infer<typeof envSchema>
