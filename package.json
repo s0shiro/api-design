@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node --watch src/index.ts",
     "start": "node src/index.ts",
-    "test": "vitest run",
+    "test": "cross-env APP_STAGE=test vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "db:generate": "drizzle-kit generate",
@@ -40,6 +40,7 @@
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.3",
+    "cross-env": "^10.1.0",
     "drizzle-kit": "^0.31.7",
     "prettier": "^3.6.2",
     "supertest": "^7.1.4",
