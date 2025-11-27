@@ -20,7 +20,7 @@ export const createHabit = async (req: AuthenticatedRequest, res: Response) => {
         })
         .returning()
 
-      if (tagIds && tagIds.lenght > 0) {
+      if (tagIds && tagIds.length > 0) {
         const habitTagValues = tagIds.map((tagId) => ({
           habitId: newHabit.id,
           tagId,
@@ -96,7 +96,7 @@ export const updateHabit = async (req: AuthenticatedRequest, res: Response) => {
       if (tagIds !== undefined) {
         //remove the existing habit tags
         await tx.delete(habitTags).where(eq(habitTags.habitId, id))
-        if (Array.isArray(tagIds) && tagIds.length > 0) {
+        if (tagIds && tagIds.length > 0) {
           const habitTagValues = tagIds.map((tagId: string) => ({
             habitId: id,
             tagId,

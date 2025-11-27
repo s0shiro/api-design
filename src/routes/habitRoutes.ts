@@ -17,7 +17,7 @@ const createHabitSchema = z.object({
   description: z.string().optional(),
   frequency: z.string(),
   targetCount: z.number(),
-  tagIds: z.array(z.string()).optional(),
+  tagIds: z.array(z.string()).default([]),
 })
 
 router.get('/', getUserHabits)

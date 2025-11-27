@@ -21,5 +21,8 @@ export const authenticateToken = async (
     const payload = await verifyToken(token)
     req.user = payload
     next()
-  } catch (error) {}
+  } catch (error) {
+    // respond instead of hanging
+    return res.status(401).json({ error: 'Invalid or expired token.' })
+  }
 }
