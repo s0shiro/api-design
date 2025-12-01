@@ -4,11 +4,10 @@ import { users, type NewUser } from '../db/schema.ts'
 import db from '../db/connection.ts'
 import { generateToken } from '../utils/jwt.ts'
 import { eq } from 'drizzle-orm'
+import type { TypedRequest } from '../types/express.ts'
+import type { LoginCredentials } from '../routes/authRoutes.ts'
 
-export const register = async (
-  req: Request<any, any, NewUser>,
-  res: Response,
-) => {
+export const register = async (req: TypedRequest<NewUser>, res: Response) => {
   try {
     const hashedPassword = await hashPassword(req.body.password)
 
@@ -44,7 +43,10 @@ export const register = async (
   }
 }
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (
+  req: TypedRequest<LoginCredentials>,
+  res: Response,
+) => {
   try {
     const { email, password } = req.body
 

@@ -3,8 +3,16 @@ import type { AuthenticatedRequest } from '../middleware/auth.ts'
 import db from '../db/connection.ts'
 import { habits, habitTags } from '../db/schema.ts'
 import { and, desc, eq } from 'drizzle-orm'
+import type {
+  AuthenticatedRequestBody,
+  TypedRequest,
+} from '../types/express.ts'
+import type { CreateHabitBody, HabitParams } from '../routes/habitRoutes.ts'
 
-export const createHabit = async (req: AuthenticatedRequest, res: Response) => {
+export const createHabit = async (
+  req: TypedRequest<CreateHabitBody>,
+  res: Response,
+) => {
   try {
     const { name, description, frequency, targetCount, tagIds } = req.body
 
@@ -60,11 +68,12 @@ export const getUserHabits = async (
     })
 
     //transform the data
-    const habitsWithTags = userHabitsWithTags.map((habit) => ({
-      ...habit,
-      tags: habit.habitTags.map((ht) => ht.tag),
-      habitTags: undefined,
-    }))
+    const habitsWithTags = userHabitsWithTags.map(
+      ({ habitTags, ...habit }) => ({
+        ...habit,
+        tags: habitTags.map((ht) => ht.tag),
+      }),
+    )
 
     res.status(201).json({
       habits: habitsWithTags,
@@ -75,7 +84,10 @@ export const getUserHabits = async (
   }
 }
 
-export const updateHabit = async (req: AuthenticatedRequest, res: Response) => {
+export const updateHabit = async (
+  req: TypedRequest<Partial<CreateHabitBody>, HabitParams>,
+  res: Response,
+) => {
   try {
     const { id } = req.params
     const userId = req.user.id

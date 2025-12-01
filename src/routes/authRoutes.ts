@@ -9,6 +9,8 @@ const logInSchema = z.object({
   password: z.string().min(1, 'Password is required!'),
 })
 
+export type LoginCredentials = z.infer<typeof logInSchema>
+
 const router = Router()
 
 router.post('/register', validateBody(insertUserSchema), register)
