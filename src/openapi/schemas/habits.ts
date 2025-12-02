@@ -6,19 +6,6 @@ import { registry } from '../index.ts'
 
 extendZodWithOpenApi(z)
 
-// For selecting/reading habits (all fields)
-const baseSelectHabitSchema = createSelectSchema(habits)
-
-const baseInsertUserSchema = createSelectSchema(habits)
-
-// For inserting habits (with validation overrides)
-const baseInsertHabitSchema = createInsertSchema(habits, {
-  name: z.string().min(1, 'Name is required').max(100),
-  description: z.string().optional(),
-  frequency: z.string().min(1, 'Frequency is required'),
-  targetCount: z.number().int().positive().optional(),
-})
-
 // Define schemas manually (more control, avoids drizzle-zod issues)
 export const createHabitSchema = z
   .object({

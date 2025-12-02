@@ -11,6 +11,14 @@ extendZodWithOpenApi(z)
 // Global registry - import this everywhere
 export const registry = new OpenAPIRegistry()
 
+// Register Bearer Auth security scheme for JWT
+registry.registerComponent('securitySchemes', 'bearerAuth', {
+  type: 'http',
+  scheme: 'bearer',
+  bearerFormat: 'JWT',
+  description: 'Enter your JWT token',
+})
+
 export const generateOpenAPIDocument = () => {
   const generator = new OpenApiGeneratorV3(registry.definitions)
 

@@ -9,10 +9,15 @@ extendZodWithOpenApi(z)
 // Login - custom schema (not from DB)
 export const loginSchema = z
   .object({
-    email: z.string().email('Invalid email'),
+    email: z.email('Invalid email'),
     password: z.string().min(1, 'Password is required!'),
   })
-  .openapi('LoginRequest')
+  .openapi('LoginRequest', {
+    example: {
+      email: 'demo@app.com',
+      password: 'password',
+    },
+  })
 
 // Register - extend from Drizzle schema, then add OpenAPI metadata
 const baseInsertUserSchema = createInsertSchema(users, {
@@ -28,8 +33,8 @@ export const registerSchema = baseInsertUserSchema
 // Response schemas
 export const userResponseSchema = z
   .object({
-    id: z.string().uuid(),
-    email: z.string().email(),
+    id: z.uuid(),
+    email: z.email(),
     username: z.string(),
     firstName: z.string().nullable(),
     lastName: z.string().nullable(),
