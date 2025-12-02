@@ -5,7 +5,7 @@ import db from '../db/connection.ts'
 import { generateToken } from '../utils/jwt.ts'
 import { eq } from 'drizzle-orm'
 import type { TypedRequest } from '../types/express.ts'
-import type { LoginCredentials } from '../routes/authRoutes.ts'
+import type { LoginCredentials } from '../openapi/schemas/auth.ts'
 
 export const register = async (req: TypedRequest<NewUser>, res: Response) => {
   try {

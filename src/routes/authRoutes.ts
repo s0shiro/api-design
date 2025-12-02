@@ -1,20 +1,13 @@
 import { Router } from 'express'
 import { login, register } from '../controllers/authController.ts'
 import { validateBody } from '../middleware/validation.ts'
-import { insertUserSchema } from '../db/schema.ts'
 import z from 'zod'
-
-const logInSchema = z.object({
-  email: z.email('Invalid email'),
-  password: z.string().min(1, 'Password is required!'),
-})
-
-export type LoginCredentials = z.infer<typeof logInSchema>
+import { loginSchema, registerSchema } from '../openapi/schemas/auth.ts'
 
 const router = Router()
 
-router.post('/register', validateBody(insertUserSchema), register)
+router.post('/register', validateBody(registerSchema), register)
 
-router.post('/login', validateBody(logInSchema), login)
+router.post('/login', validateBody(loginSchema), login)
 
 export default router

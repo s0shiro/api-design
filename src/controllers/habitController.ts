@@ -7,10 +7,14 @@ import type {
   AuthenticatedRequestBody,
   TypedRequest,
 } from '../types/express.ts'
-import type { CreateHabitBody, HabitParams } from '../routes/habitRoutes.ts'
+import type {
+  CreateHabitInput,
+  HabitParams,
+  UpdateHabitInput,
+} from '../openapi/schemas/habits.ts'
 
 export const createHabit = async (
-  req: TypedRequest<CreateHabitBody>,
+  req: TypedRequest<CreateHabitInput>,
   res: Response,
 ) => {
   try {
@@ -85,7 +89,7 @@ export const getUserHabits = async (
 }
 
 export const updateHabit = async (
-  req: TypedRequest<Partial<CreateHabitBody>, HabitParams>,
+  req: TypedRequest<Partial<UpdateHabitInput>, HabitParams>,
   res: Response,
 ) => {
   try {
